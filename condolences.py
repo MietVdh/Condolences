@@ -13,7 +13,7 @@ PHOTO_URL = ""
 r = requests.get(URLS[0])
 soup = BeautifulSoup(r.content, 'html.parser')
 
-targetFile = '.\\' + FILENAME + '.html'
+targetFile = '.\\' + 'rev' + FILENAME + '.html'
 
 pages = soup.find_all("a", class_="page-numbers", href=True)
 for page in pages:
@@ -62,7 +62,7 @@ for URL in URLS:
         
 
 
-with open('.\\chrono' + FILENAME + '.html', 'a', encoding="utf-8") as newfile:
+with open('.\\' + FILENAME + '.html', 'a', encoding="utf-8") as newfile:
     with open(targetFile, encoding="utf-8") as reverse_chron:
         newfile.write(str(NAME))
         newfile.write(str(PHOTO_URL))
