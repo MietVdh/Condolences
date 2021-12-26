@@ -1,0 +1,48 @@
+{% extends "layout.html" %} 
+
+{% block title %}Condolences {% endblock %}
+
+{% block header %}Condolences {% endblock %}
+
+{% block body %} 
+<p>Enter the link the view your condolences here, along with the names of the people 
+    whose messages you don't wish to print out 
+    (typically the names of family members who replied to condolences).</p>
+<form action="/condolences" method="post">
+    <div class="field">
+        <label class="label" for="src-url">Your personal condolences link</label>
+        <div class="control">
+            <input class="input" type="url" id="src-url" name="src-url">
+        </div>
+    </div>
+    <div class="field">
+        <label class="label" for="excl-auth">Don't include the following authors' messages
+            (Please use one line per name):</label>
+        <div class="control">
+            <textarea class="textarea" type="text" id="excl-auth" name="excl-auth"></textarea>
+        </div>
+    </div>
+    <div class="field">
+        <div class="control">
+          <label class="radio">
+            <input type="radio" name="date" value="date">
+            Add date
+          </label>
+          <label class="radio">
+            <input type="radio" name="date" value="date-time">
+            Add date and time
+          </label>
+          <label class="radio">
+            <input type="radio" name="date" value="none" checked>
+            Don't add date
+          </label>
+        </div>
+    </div>
+    <div class="field">
+        <div class="control">
+            <button class="button is-dark">Submit</button>
+          </div>
+    </div>
+</form>
+
+{% endblock %} 
