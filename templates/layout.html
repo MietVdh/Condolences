@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %} {% endblock %}</title>
+    <title>Condolences</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="../static/styles.css">
   </head>
@@ -11,13 +11,21 @@
     <section class="hero is-dark">
         <div class="hero-body">
           <p class="title">
-            {% block header %}
-            {% endblock %}
-          </p>
-          <p class="subtitle">
-            {{ subtitle }}
+            Condolences
           </p>
         </div>
+        <nav class="navbar is-transparent">
+          <div id="navbarExampleTransparentExample" class="navbar-menu">
+            <div class="navbar-start">
+              <a class="navbar-item" href="/">
+                Home
+              </a>
+              <a class="navbar-item" href="/about">
+                About
+              </a>
+            </div>
+        </nav>
+        
     </section>
     <section class="section">
         <div class="container">

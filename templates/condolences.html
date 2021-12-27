@@ -1,25 +1,24 @@
 {% extends "layout.html" %} 
 
-{% block title %} {{ dec_name }} {% endblock %}
+{% block body %}
+<section class="dec-info">
+    <h1 class="is-size-1 has-text-weight-bold"> {{ dec_name }} </h1>
+    <br>
+    <h2 class="is-size-2 has-text-weight-medium"> {{ dec_dob }} - {{ dec_dod }} </h2>
+    <br>
+    <img class="dec-pic" src= "{{ picture_url }}" >
+    <br>
+    <br>
+</section> 
 
-{% block header %} {{ dec_name }} {% endblock %}
-
-{% block body %} 
-<h1 class="is-size-1 has-text-weight-bold"> {{ dec_name }} </h1>
-<br>
-<h2 class="is-size-2 has-text-weight-medium"> {{ dec_dob }} - {{ dec_dod }} </h2>
-<br>
-<img src= "{{ picture_url }}" >
-<br>
-<br>
-<div>
+<section class="all-comments">
     {% for comment in comments|reverse %} 
-    <section class="ind-comment">
+    <article class="ind-comment">
         <p class="has-text-weight-semibold"><i> {{ comment.author }} </i> {{ comment.date }} </p>
         <p> {{ comment.comment }} </p>
         <br>
-    </section>
+    </article>
     {% endfor %}
-</div>
+</section>
 
 {% endblock %}

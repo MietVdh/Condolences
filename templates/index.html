@@ -1,18 +1,14 @@
 {% extends "layout.html" %} 
 
-{% block title %}Condolences {% endblock %}
-
-{% block header %}Condolences {% endblock %}
-
 {% block body %} 
 <p>Enter the link the view your condolences here, along with the names of the people 
     whose messages you don't wish to print out 
     (typically the names of family members who replied to condolences).</p>
-<form action="/condolences" method="post">
+<form action="/condolences" method="post" id="form">
     <div class="field">
         <label class="label" for="src-url">Your personal condolences link</label>
         <div class="control">
-            <input class="input" type="url" id="src-url" name="src-url">
+            <input class="input" type="url" id="src-url" name="src-url" required>
         </div>
     </div>
     <div class="field">
@@ -40,9 +36,10 @@
     </div>
     <div class="field">
         <div class="control">
-            <button class="button is-dark">Submit</button>
+            <button class="button is-dark" id="submit-button">Submit</button>
           </div>
     </div>
 </form>
 
+<script src="../static/script.js"></script>
 {% endblock %} 

@@ -1,3 +1,7 @@
+nav {
+    padding-left: 2.5rem;
+}
+
 @media print {
     .hero {
         display: none;
@@ -11,6 +15,26 @@
     .ind-comment {
         break-inside: avoid;
     }
+
+    .dec-info {
+        break-after: page;
+        height: 100%;
+        margin-top: 10%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+
+    .dec-pic {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+        padding-top: 10%;
+    }
+
+
 }
 
 @page {
