@@ -1,5 +1,11 @@
+
+
 nav {
     padding-left: 2.5rem;
+}
+
+#form {
+    max-width: 500px;
 }
 
 @media print {

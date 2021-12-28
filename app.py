@@ -12,8 +12,10 @@ def index():
 def about():
     return render_template("about.html")
 
-@app.route("/condolences", methods=["POST"])
+@app.route("/condolences", methods=["GET", "POST"])
 def condolences():
+    if request.method == "GET":
+        return render_template("error.html", error_message="To see your messages, please go to the homepage and enter your URL")
     src_url=request.form.get("src-url")
     excl_auth_str=request.form.get("excl-auth")
     add_date=request.form.get("date")
@@ -25,67 +27,72 @@ def condolences():
     URLS = [src_url]
     r = requests.get(URLS[0])
     soup = BeautifulSoup(r.content, 'html.parser')
-    photoDiv = soup.find('div', class_="deceased-img")
-    PHOTO=photoDiv.img
-    PHOTO_URL = PHOTO['src']
-    NAME = soup.find(class_='deceased-name').text
-    birth_info = soup.find('div', class_='deceased-born-place-and-date')
-    birth_string = birth_info.find('p').find('span', class_='deceased-info-body').text
-    birth_string = " ".join(birth_string.split())
-    BIRTH_DATE = birth_string.split(' op ')[1]
-    death_info = soup.find('div', class_='deceased-death-place-and-date')
-    death_string = death_info.find('p').find('span', class_='deceased-info-body').text
-    death_string = " ".join(death_string.split())
-    DEATH_DATE = death_string.split(' op ', 1)[1]
 
-    pages = soup.find_all("a", class_="page-numbers", href=True)
-    for page in pages:
-        fullURL = "https://begrafenissen-rummens.be" + page.get("href")
-        if fullURL not in URLS: 
-            URLS.append(fullURL)
-    condolences_list = []
+    try: 
 
-    for URL in URLS:
+        photoDiv = soup.find('div', class_="deceased-img")
+        PHOTO=photoDiv.img
+        PHOTO_URL = PHOTO['src']
+        NAME = soup.find(class_='deceased-name').text
+        birth_info = soup.find('div', class_='deceased-born-place-and-date')
+        birth_string = birth_info.find('p').find('span', class_='deceased-info-body').text
+        birth_string = " ".join(birth_string.split())
+        BIRTH_DATE = birth_string.split(' op ')[1]
+        death_info = soup.find('div', class_='deceased-death-place-and-date')
+        death_string = death_info.find('p').find('span', class_='deceased-info-body').text
+        death_string = " ".join(death_string.split())
+        DEATH_DATE = death_string.split(' op ', 1)[1]
 
-        r = requests.get(URL)
-        soup = BeautifulSoup(r.content, 'html.parser')
+        pages = soup.find_all("a", class_="page-numbers", href=True)
+        for page in pages:
+            fullURL = "https://begrafenissen-rummens.be" + page.get("href")
+            if fullURL not in URLS: 
+                URLS.append(fullURL)
+        condolences_list = []
 
-        commentlist = soup.find('ol', class_ = 'commentlist')
-        comments = commentlist.find_all('li', class_='depth-1')
+        for URL in URLS:
 
-        for comment in comments:
-            try:
-                author = comment.find('cite', class_='fn')
-                authorPlain = author.text.strip()
-                if authorPlain in plain_excl_auth:
+            r = requests.get(URL)
+            soup = BeautifulSoup(r.content, 'html.parser')
+
+            commentlist = soup.find('ol', class_ = 'commentlist')
+            comments = commentlist.find_all('li', class_='depth-1')
+
+            for comment in comments:
+                try:
+                    author = comment.find('cite', class_='fn')
+                    authorPlain = author.text.strip()
+                    if authorPlain in plain_excl_auth:
+                        continue
+                    dateDiv = comment.find('div', class_='comment-meta')
+                    date = dateDiv.find('a')
+                    commentText = comment.find('p')
+                
+                    datePlain = date.text.strip()
+                
+                    if add_date == "date":
+                        dateFinal = "- " + datePlain.split(" om")[0]
+                    elif add_date == "date-time":
+                        dateFinal = "- " + datePlain
+                    else:
+                        dateFinal = ""
+
+                    commentPlain = commentText.text.strip()
+                    commentDict = {
+                        "author": authorPlain,
+                        "comment": commentPlain,
+                        "date": dateFinal
+                    }
+            
+                    condolences_list.append(commentDict)
+
+                except:
+                    # print id of comments that do not get added to file
+                    print(comment['id'])
                     continue
-                dateDiv = comment.find('div', class_='comment-meta')
-                date = dateDiv.find('a')
-                commentText = comment.find('p')
-               
-                datePlain = date.text.strip()
-             
-                if add_date == "date":
-                    dateFinal = "- " + datePlain.split(" om")[0]
-                elif add_date == "date-time":
-                    dateFinal = "- " + datePlain
-                else:
-                    dateFinal = ""
-
-                commentPlain = commentText.text.strip()
-                commentDict = {
-                    "author": authorPlain,
-                    "comment": commentPlain,
-                    "date": dateFinal
-                }
-        
-                condolences_list.append(commentDict)
-
-            except:
-                # print id of comments that do not get added to file
-                print(comment['id'])
-                continue
-    print(len(condolences_list))
+        print(len(condolences_list))
+    except:
+        return render_template("error.html", error_message="Please make sure you entered the correct URL and try again.")
     # print_condolences(src_url, excl_auth)
     return render_template("condolences.html", dec_name=NAME, dec_dob=BIRTH_DATE, dec_dod=DEATH_DATE, 
     comments=condolences_list, picture_url=PHOTO_URL)
