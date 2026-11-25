@@ -1,5 +1,4 @@
 # CONDOLENCES
-#### Video Demo:  https://youtu.be/mwxctRc9VKY
 #### Description:
 Condolences is a web app that allows clients of a specific Belgian funeral home ([Begrafenissen Rummens](https://begrafenissen-rummens.be/)) to generate a printable list of all the condolence messages left on the website.
 
