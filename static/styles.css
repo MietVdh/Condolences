@@ -8,6 +8,10 @@ nav {
     max-width: 500px;
 }
 
+.dec-pic {
+    width: 200px;
+}
+
 @media print {
     .hero {
         display: none;
