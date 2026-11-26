@@ -1,8 +1,8 @@
 # CONDOLENCES
-#### Description:
+### Description:
 Condolences is a web app that allows clients of a specific Belgian funeral home ([Begrafenissen Rummens](https://begrafenissen-rummens.be/)) to generate a printable list of all the condolence messages left on the website.
 
-The project was made with Flask and deployed using Render ([link here](https://condolences.onrender.com/)). The webscraping is done with BeautifulSoup. For styling, I used the Bulma framework.
+The project was made with Flask and deployed using [Render](https://condolences.onrender.com/). The webscraping is done with BeautifulSoup. For styling, I used the Bulma framework.
 
 The main code for the app is in the app.py file. The static folder holds the css file that specifies how to print the data, and the html files are in the templates folder. All dependencies are listed in requirements.txt.
 
@@ -15,7 +15,12 @@ This page is formatted to be easy to print, and messages don't break when printi
 
 I don't store any information, because the app works fine without it, and privacy is very important to me.
 
-#### Why this project
-This project is obviously only useful to a very small number of people, but I wanted to create something that had an actual use, and not just yet another to-do app. Earlier this year, my dad died unexpectedly, and 2 months later my great-aunt died. My mom asked me to collect the messages left after my aunt died, so my grandmother could read them (she doesn't do technology).
+### Why this project
+This project is obviously only useful to a very small number of people, but I wanted to create something that had an actual use, and not just yet another to-do app. Early in 2021, my dad died unexpectedly, and 2 months later my great-aunt died. My mom asked me to collect the messages left after my aunt died, so my grandmother could read them (she doesn't do technology).
+
 Rather than go through all the messages manually and copy-paste, I thought it would be more interesting to write some code to extract the messages. That way, I could do the same thing for the condolences for my dad.
-When my great-uncle died a few weeks ago, I wanted to offer gathering the messages to his daughter, but I didn't want to ask for the link, because those messages can be very personal. So I decided to turn the code I had into a web app, so anyone can use it without having to give me access to their link.
+
+When my great-uncle died, I wanted to offer to gather the condolence messages to his daughter, but I didn't want to ask for the link, because those messages can be very personal. So I decided to turn the code I had into a web app, so anyone can use it without having to give me access to their link.
+
+### Testing the app
+If you would like to see the web app in action, you can visit the [web app](https://condolences.onrender.com/) and enter [this mock memorial link](https://mietvdh.github.io/condolences-demo.html) to try it out.
